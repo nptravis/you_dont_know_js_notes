@@ -1,1 +1,2 @@
 These are my notes from the You Don't Know JS book series by Kyle Simpson, Book 1: Up & Going
+Alot of text and code is directly lifted from the source, all credit is do to the source, these are just notes

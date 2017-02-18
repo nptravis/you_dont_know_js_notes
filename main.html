@@ -6,6 +6,8 @@
 </head>
 <script type="text/javascript">
 
+// Chapter 1: Into Programming
+
 	// Statements 
 	// are a group of words number and operators that perfom a specific task
 	a = b * 2; // a & b are variables, = and * are operators, 2 is a literal value
@@ -15,7 +17,184 @@
 	a = b * 2; // 2 is a literal value expression, b is a variable expression, b * 2 is an arithemtic expression
 							// a = b * 2 is an assignment expression
 
+	// Output
+	a = 3 + 5;
+	console.log(a); // will output to the js console
+	alert(b); // will create a popup that needs to be clicked ok by the user
+	document.write(a); // will output to the html document, and show up in the browser window
 
+	// Input
+	age = prompt("Please type your age here");
+
+	// Operators
+	// how we perform actions on variables
+	b = a + 1; // the = and + are operators, others are here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators
+	var a = 5; // declare variables like this
+
+	// Values and Types
+	var a = "string"; // this is a string data type
+	var a = 2; // this is a number data type
+	var a = true; // this is a boolean data type
+
+	// Converting value types
+	var a = "42";
+	var b = Number(a);
+	console.log(a); // outputs "42"
+	console.log(b); // outputs 42
+	console.log(a == "42"); // outputs true
+	"99" == 99 // outputs true, JavaScript will sometimes kick in and implicitly coerce values to the matching types.
+						 // implicit coercion can be tricky sometimes, good to learn the rules that govern its behaviour
+
+	// Code Comments
+  a = 3 + 5; // 8 , this is an inline comment
+  /* this is
+     a multi line
+     comment */
+  var a = /* comments can appear in middle of lines as well */ 3 + 5;
+  // use code comments, they help developers understand the why or the how, keep it concise as possible
+
+  // Variables
+  var a = "a is now a variable"; // variables are containers that store values to be used or altered
+  a += "you understand?"
+  console.log(a) // outputs "a is now a variable, you understand?"
+  // JavaScript is a dynamically typed language(or weak typed), different than static typed language, I believe the difference being the point at which the variable is evualated. Static is evaluated immediately so any change in the variable needs to be a new declaration, where as dynamic isn't evualted until run-time, so can change easier until the program is actually run.
+  
+  // Blocks
+  // a way to group statements together
+  var amount = 99.99;
+  {
+  	amount = amount *2;
+  	console.log(amount); // 199.98
+  }
+  // a stand alone block like this is valid, but usually blocks are usually attached to some other control statement, such as an if statement or loop
+  var amount = 99.99;
+  if (amount = 99.99) {
+  	return true;
+  } // resturns true
+  // blocks don't need semi colons to conclude it
+
+  // Conditionals
+  // ways to compare our code, aka make decisions. Most common are if/else statements, 
+  var a = 5;
+  if (a < 10) {
+  	return "less than ten";
+  } else {
+  	return "great than ten";
+  }
+
+  // Loops
+  // ways to iterrate over our code, while loops, do...while loops
+  var numOfCustomers = 2;
+     while (numOfCustomers > 0) {
+    console.log( "How may I help you?" );
+    // help the customer...
+    numOfCustomers = numOfCustomers - 1; // or numOfCustomers -= 1;
+		}
+  // versus:
+	do {
+	    console.log( "How may I help you?" );
+	    // help the customer...
+	    numOfCustomers = numOfCustomers - 1;
+	} while (numOfCustomers > 0);
+	//The only practical difference between these loops is whether the conditional is tested before the first iteration (while) or after the first iteration (do..while).
+	var i = 0;
+	// a `while..true` loop would run forever, right?
+	while (true) {
+	    // stop the loop?
+	    if ((i <= 9) === false) {
+	        break; // way to stop the while loop
+	    }
+	    console.log( i );
+	    i = i + 1;
+	}
+	// 0 1 2 3 4 5 6 7 8 9
+
+	// Functions 
+	// a named section of code that can be called anytime to perform a task
+		function printAmount() {
+	    console.log( amount.toFixed( 2 ) );
+		}
+		var amount = 99.99;
+		printAmount(); // "99.99"
+		amount = amount * 2;
+		printAmount(); // "199.98"
+	// Functions can optionally take arguments (aka parameters) -- values you pass in. And they can also optionally return a value back.
+		function printAmount(amt) {
+	    console.log( amt.toFixed( 2 ) );
+		}
+		function formatAmount() {
+		    return "$" + amount.toFixed( 2 );
+		}
+		var amount = 99.99;
+		printAmount( amount * 2 );      // "199.98"
+		amount = formatAmount();
+		console.log( amount );          // "$99.99"
+
+		// Scope
+		// each function gets its own scope, only code inside the function can access that functions scoped variables
+			function one() {
+	    // this `a` only belongs to the `one()` function
+	    var a = 1;
+	    console.log( a );
+	    }
+			function two() {
+			    // this `a` only belongs to the `two()` function
+			    var a = 2;
+			    console.log( a );
+			}
+			one();      // 1
+			two();      // 2
+			// scope can be nested inside another scope, and inner scope can access outer's variables, but outer can not access inner scope's variables
+
+			function outer() {
+				var a = 1;
+				function inner() {
+					var b = 2;
+					console.log(a + b); // 3, we can access both variables in here
+				}
+				inner();
+				console.log(a); //1, can only access outer scope variables here
+			}
+			outer();
+
+			//Practice
+			//see the practice file
+
+			//Review
+			
+			// Operators
+			// used to manilpulate data
+			+ = - // etc.
+
+			// Values and data types
+			// represent data
+			5; "strings"; true || false;
+
+			//Variables
+			// used to store data
+			var data = 100;
+
+			// Conditionals
+			// make decisions
+			if (data > 100) {
+				return data;
+			}
+
+			// Loops
+			// iterate over data
+			while (data < 1000) {
+				data += 50;
+			}
+			for (var i =0; i < data; i++) {
+				data += i;
+			}
+
+			// Functions
+			// used to store code blocks to be recalled easily
+			function eraseData(data) {
+				data = 0;
+				return data;
+			}
 
 
 

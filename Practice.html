@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script type="text/javascript">
+
+// Problem: write a program to caculate how many phones you can buy
+//constraints to use are tax rate, phone price, accessory price, spending threshold, bank account balance.
+
+//variables
+// const TAX_RATE = .08;
+// var phonePrice = 99.99;
+// var phoneCase = 19.99;
+// var screenProtector = 12.99;
+// var bankAccountBalance = 3245;
+// var total = 0;
+
+// // function
+// function phoneSale(){
+//     var buy = prompt("would you like to buy a phone today?");
+//     if (buy === "yes") {
+// 	      total += phonePrice;
+// 	      var buy2 = prompt("would you like any accessories?")
+// 	      if (buy2 === "yes") {
+// 	      	  var buy3 = prompt("would you like to buy a case?")
+// 	      	  if (buy3 === "yes") {
+// 	              total += phoneCase;
+// 	              var buy3 = prompt("would you like a screen protector?")
+// 					      if (buy3 === "yes") {
+// 					          	total += screenProtector;
+// 					          	sendTotal();
+// 					          } else {
+// 					          	sendTotal();
+// 					          }
+// 	          } else {
+// 	          	var buy3 = prompt("would you like a screen protector?")
+// 	          	if (buy3 === "yes") {
+// 					          	total += screenProtector;
+// 					          	sendTotal();
+// 					          } else {
+// 					          	sendTotal();
+// 					          }
+// 	          }
+// 	      } else {
+// 	      	sendTotal();
+// 	      }
+//     } else {
+//     	document.write("Ok, goodbye")
+//     }
+//   }
+
+// function sendTotal() {
+// 		total += total * TAX_RATE;
+// 		bankAccountBalance -= total;
+// 		document.write("Here is your total: $" + total.toFixed(2) +". Your account balance is now: $" + bankAccountBalance.toFixed(2));
+// }
+
+// // call the function
+// phoneSale();
+
+const TAX_RATE = .08;
+const PHONE_PRICE = 99.99;
+const ACCESSORY_PRICE = 12.99;
+const SPENDING_THRESHOLD= 200;
+var accountBalance = prompt("What is your account balance?");
+var amount = 0;
+
+function calculateTax(amount) {
+	return amount * TAX_RATE;
+}
+function formatAmount(amount) {
+	return "$" + amount.toFixed(2);
+}
+
+
+while (amount < accountBalance) {
+	amount += PHONE_PRICE;
+	amount += calculateTax(amount);
+}
+
+console.log(
+	"Your purchase: " + formatAmount(amount)
+	);
+
+if (amount > accountBalance) {
+	console.log(
+		"You can't afford this purchase. :("
+		);
+}
+
+
+</script>
+<body>
+	
+</body>
+</html>
