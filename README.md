@@ -1,10 +1,10 @@
-You Don't Know JS book series by Kyle Simpson
+# You Don't Know JS book series by Kyle Simpson
 
-Book 1: Up & Going
+## Book 1: Up & Going
 
-  Chapter 1: Into Programming
-  	Code
-  	  Statements
+### Chapter 1: Into Programming
+#### Code
+##### Statements
   	  Expressions
   	  Executing a Program
   	Try it Yourself!
