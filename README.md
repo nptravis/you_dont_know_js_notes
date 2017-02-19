@@ -3,8 +3,8 @@
 ## Book 1: Up & Going
 
 ### Chapter 1: Into Programming
-#### Code
-##### Statements
+  Code
+    Statements
   	  Expressions
   	  Executing a Program
   	Try it Yourself!
@@ -23,7 +23,7 @@
   	Practice
   	Review
 
-  Chapter 2: Into JavaScript
+### Chapter 2: Into JavaScript
     Values and Types
       Objects
       Arrays
