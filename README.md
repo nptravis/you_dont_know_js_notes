@@ -54,6 +54,15 @@
     Non-JavaScript
     Review
 ```
+### Chapter 3: Into YDKJS
+```
+  Scope and Closures
+  this and Object Prototypes
+  Types and Grammar
+  Async and Performance
+  ES6 and Beyond
+  Review
+```
 
 
 
