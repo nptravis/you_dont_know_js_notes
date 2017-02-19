@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script type="text/javascript">
+	// Chapter 2: Into Javascript/////////////////////////////////////////////////////////////////////////////////////
+
+	// Values and Types
+	"string"; // strings
+	21; // numbers
+	false; //booleans
+	null; undefined; // nulls
+	var object = {}; // objects
+	// symbols
+	
+	// typeof operator can examine a value and return the type
+	typeof 2; // number
+	typeof true; // boolean
+	var a = {};
+	typeof a; // object
+  typeof null; // object - weird bug
+  typeof undefined; // undefined
+
+  // Objects
+  // a data type that can hold a compound value where you can set properties(named locations), one of the most useful types in JS
+  var obj = {
+  	a: "hello, world",
+  	b: 42;
+  	c: true;
+  }
+  // values can be accessed via dot notation, which is shorter therefore preferred
+  obj.a // "hello, world"
+  obj.b // 42
+  obj.c // true
+  // or bracket notation, useful property name has special characters in it
+  obj.["a"]; // "hello, world"
+  obj.["b"]; // 42
+  obj.["c"]; // true
+
+  //bracket notation also useful to access a property/key that has it's name stored in another value
+  var obj = {
+  	a: "hello, world",
+  	b: 42;
+  }
+  var b = "a";
+  obj[b]; // "hello, world"
+  obj["b"]; // 42
+
+  // Arrays
+  // an object that holds values of any type, not in named property/keys, but in numerically indexed positions
+  var arr = ["hello, world", 42, true];
+  arr[0]; // "hello, world"
+  arr[1]; // 42
+  arr[2]; // true
+  typeof arr // "object"
+  //note: JS using zero indexing, so count starts from 0
+  
+  // Functions
+  // an object subtype that stores blocks of reusable code
+  function foo() {
+  	return 42;
+  }
+  foo.bar = "hello, world";
+  typeof foo; // "function"
+  typeof foo(); // "number"
+  typeof foo.bar; // "string"
+
+  // Built-in Type Method
+  // A string value can be wrapped by a String (capital S) object, a number can be wrapped by a Number object, and a boolean can be wrapped by a Boolean object. It's the object wrapper that defines the toUpperCase() method on its prototype
+  var a = "hello, world";
+  var b = 3.14159;
+
+  a.length; // 11
+  a.toUpperCase(); // "HELLO, WORLD"
+  b.toFixed(4); // 3.1416
+
+  // Comparing Values
+  // two main types are equality, and inequlaity. The result of any comparison is a boolean, true or false.
+    
+    //Coercion
+    // two forms: explicit and implicit. Explicit coercion is that you obviously see from the code that a conversion from one type to another will occur. Implicit coercion is when data type conversion is a non-obvious side effect of some other operation.
+    // Explicit coercion
+    var a = "42";
+    var b = Number(a);
+    a; // "42"
+    b; // 42 - the number
+    // Implicit coercion
+    var a = "42";
+    var b = a * 1; // "42" is implicitly coerced to 42 here
+    a; // "42"
+    b; // 42 - the number
+
+    // Truthy an Falsy
+    // when a non-boolean value is coerced into a boolean, it becomes true or false
+    // Falsy values
+    ""; // empty string
+    0, -0, NaN; // invalid numbers
+    null, undefined
+    false
+    // All other values are truthy values, for example:
+    "hello";
+    42;
+    [], [1,2,"3"] // arrays
+    {}, {a:42} // objects
+    function foo(){}; // functions
+
+    // Equality
+    // four operators
+    == // check for equality allowing coercion
+    === // checks for equality without allowing coercion, strict equality
+    !=, !== // non-equal counterparts
+    var a = "42";
+    var b = 42;
+
+    a == b; // true, the string "42" is implicitly coerced into 42 the number
+    a === b; // false
+
+    // If either value could be the true or false value, avoid == and use ===
+    // If either value 0, "", or [], avoid == and use ===
+    // All other cases safe to use ==
+    // Arrays are coeced into strings with , between the elements
+    var a = [1,2,3];
+    var b = [1,2,3];
+    var c = "1,2,3";
+    a == c // true
+    b == c // true
+    a == b // false
+
+    // Inequality
+    <, >, <=, >= // the operators are used for inequality, refered to as "relational comparison"
+    var a = 41;
+    var b = "42";
+    var c = "43";
+
+    a < b // true, if one value is a string and one a number, they are both coered into numbers then compared
+    b > c // true, if both values are strings they are compared lexographically (like alhpabetically)
+    
+    var a = 42;
+    var b = "foo";
+
+    a < b; // false
+    a > b; // false
+    a == b; // false
+    // the string is coerced into an invalid number, NaN, which is neither greater than nore less than any other value
+
+  // Variables
+  // valid variable identifiers (or names) must start with a-z, A-Z, $, or _. It then can contain any of those characters plus numbers.
+
+  //Function Scopes
+  // use the var keyword to identify a variable that will belong to the current function scope, or the global scope if declared outside of the function.
+    // Hoisting
+    // wherever a var appears inside a scope, it is immediatly available for the entire scope, even if delcared at the end, conceptiually it moves to the top of the code block, due to how code is compiled
+    
+    var a = 2;
+    foo(); // foo() declaration is "hoisted"
+    
+    function foo() {
+    	a = 3;
+    	console.log(a);
+    	var a; // var is "hoisted"
+    }
+
+    console.log(a); // 2
+
+    // hoisting is best utilized for function calls, try to declare variables at the top to keep with best practices
+
+    // Nested Scopes
+    // when you declare a variable it is available anywhere in that or more inner scopes, not to outer scopes
+
+    function foo() {
+    	var a = 1;
+    	function bar() {
+    		var b = 2;
+    		function baz() {
+    			var c = 3;
+    			console.log(a, b, c); // 1 2 3
+    		}
+    		baz();
+    		console.log(a, b); // 1 2
+    	}
+    	bar();
+    	console.log(a); // 1
+    }
+    foo();
+
+    //let variable declaration defines a variable limited in scope to the code block it was defined
+    // unlike the var keyword, which defines a variable globally or locally to an entire function regardless of block scope
+
+    function foo() {
+    	var a = 1;
+    	if (a >= 1) {
+    		let b = 2;
+    		while (b < 5) {
+    			let c = b * 2;
+    			b++;
+    			console.log(a + c);
+    		}
+    	}
+    }
+    foo(); // 5 7 9
+
+  // Conditionals
+  // if/else statements, switch statements, ternery operator
+  if (a == 2) {
+  	// do something
+  } else if (a == 10) {
+  	// do another thing
+  } else if (a == 42) {
+  	// do yet another thing
+  } else {
+  	// fallback to here
+  }
+
+  switch (a) {
+  	case 2:
+  		// do something
+  		break; // if this break is omitted, it will run case 2, then case 10 also
+  	case 10:
+  		// do another thing
+  		break;
+  	case 42:
+  		// do yet another thing
+  		break;
+  	default:
+  	  // fallback to here
+  	}
+
+  var a = 42;
+  var b = (a > 41) ? "hello" : "world"; // if condition before the ? evaluates to true it runs "hello", if false runs "world"
+
+  // Strict Mode
+  // tightens the rules for certain behaviors, and makes code generally more optimizable by engines. It is a big win for code and you should use it for all your programs
+
+  function foo() {
+  	"use strict";
+  	// this code is strict mode
+  	function bar() {
+  		// this code is strict mode
+  	}
+  }
+  // this code is not strict mode
+
+  "use strict";
+  function foo() {
+  	// this code is strict mode
+  	function bar() {
+  		// this code is strict mode
+  	}
+  }
+  // this code is also strict mode
+
+  // strict mode does not allow global variable declarations, which is a good thing, will throw a reference error
+  function foo() {
+  	"use strict";
+  	a = 1; // var missing, reference error
+  }
+  foo();
+
+  // Functions 
+  // a function is a value or expression itself that can be assinged to variables
+  var foo = function() { // anonymous function expression, cause it has no name
+  	//..
+  };
+
+  var x = function bar(){ // named function expression
+  	//...
+  };
+  
+  //Immediatly invoked function expression(IIFE)
+  (function IIFE(){
+  	console.log("hello");
+  })();
+
+  foo();
+  (function IIFE(){...})(); // not different, just instead the variable foo holdin the function, the IIFE is created and called at the same time
+
+  //IIFE are often used to declare variables that won't affect the surrounding scope
+  var a = 42;
+  (function IIFE(){
+  	var a = 10;
+  	console.log(10);
+  })(); // 10
+  console.log(a); // 42
+
+  // IIFEs can also have return values
+  var x = (function IIFE(){
+  	return 42;
+  })();
+
+  x; // 42
+
+  //Closure
+  // one of the most importent skills to understand, basically a way to "remember" and continue to access a function's scope (its variables) even once the funcion has stopped running.
+
+  function makeAdder(x) {
+  	function add(y) {
+  		retunr y + x; // inner function uses x, so it has "closure" over it
+  	}
+  	return add;
+  }
+
+  var plusOne = makeAdder(1);
+  var plusTen = makeAdder(10);
+  plusOne(3); // 4 <-- 1 + 3, it sets it's argument as y, and makeAdder(1) sets argument as x, so returns y + x
+  plusOne(41); // 42 <-- 1 + 41
+  plusTen(13); // 23 <-- 10 + 13
+
+    // Modules
+    // most common usage of closure. They let you hide variables and functions from the outside world but can be accessed via a publicAPI from the outside world
+
+    function User(){
+    	var username, password:
+    	function doLogin(user,pw){
+    		username = user;
+    		password = pw;
+    		// do the rest of the login work
+    	}
+    	var publicAPI = {
+    		login: doLogin
+    	};
+
+    	return publicAPI;
+    }
+    // create a 'User' module instance
+    var fred = User(); // this creates an 'instance' of the User module (for fred) which would be completely different if was called in the future, for another variable, like var amy or  var sarah for example.
+    fred.login("fred", "12Battery24!");
+    // we are not calling 'new User', in this case User is just a function, not a class
+
+    // 'this' identifier
+    // this points to an object, which one depends on how the function is called, this does not refer to the function itself.
+    function foo() {
+    	console.log(this.bar);
+    }
+    var bar = "global";
+
+    var obj1 = {
+    	bar: "obj1",
+    	foo: foo
+    };
+
+    var obj2 = {
+    	bar: "obj2"
+    };
+
+    foo(); // "global", sets this to the global variable, in strict mode this would throw an error though
+    obj1.foo(); // "obj1", sets this to the obj1 object
+    foo.call(obj2); // "obj2", sets ths to the obj2 object
+    new foo(); // undefined, sets this to a brand new empty object
+
+  // Prototypes
+  var foo = {
+  	a: 42
+  }
+  var bar = Object.create(foo);// the new object 'bar' will inheret a: 42 from 'foo', also called prototype link
+  bar.b = "hello world";
+
+  bar.b; // "hello world"
+  bar.a; // 42 <-- delegated to "foo"
+
+  // Old and New
+  // ways to bring the new JS stuff to older browsers
+   	// Polyfilling
+   	// way of creating code that emulates newer features, so it can run on older browsers
+   	if (!Number.isNaN) { // checks to see if brower currently doesn't support ES6
+   		Number.isNaN = function isNaN(x) { // defines Number.NaN
+   			return x !== x; // NaN is the only value in JS that is not equal to itself
+   		};
+   	}
+   	// be carefull when creating polyfills yourself, better to use a vetted set provided by ES5-Shim (https://github.com/es-shims/es5-shim) and ES6-Shim (https://github.com/es-shims/es6-shim).
+
+   	// Transpiling
+   	// no way to polyfill new syntax, better tp use a tool that converts newer code into older code equivalents, know as transpiling (tranforming + compiling). Use newer syntaxt to take advantage of easier to read, better browser optimizations, and allow for earlier testing and feedback on new features (therefore type new syntax and transpile for older browsers)
+   	function foo(a = 2) { // this is a newer feature, sets a default parameter value
+   		console.log(a);
+   	}
+   	foo(); // 2
+   	foo(42); // 42
+
+   	function foo() {
+   		var a = arguments[0] !== (void 0) ? arguments[0] : 2; // void 0 means 'undefined'
+   		console.log(a);
+   	}
+   	// newer syntax is easier, the transpiled code clearly explains what is happening
+   	// a few good transpilers are:
+   	// Babel (https://babeljs.io) (formerly 6to5): Transpiles ES6+ into ES5
+    // Traceur (https://github.com/google/traceur-compiler): Transpiles ES6, ES7, and beyond into ES5
+
+  // Non-JavaScript
+  // JavaScript interacts with other code (HTML, CSS, etc). Most common is the DOM API
+  var el = document.getElementById('foo'); // getElementById implemented more in C, C++
+  alert(...) // call is made to the browser, which then draws and displays the box, not the JS code doing this
+  console.log(...) // same idea here
+
+  // Review///////////////////////////////////////////////////////////////////////////////////////////////////////
+  // this chapter is just a broad overview of the flavor of JavaSCript programmings core mechanisms like values, types, function closures, this, and prototypes.
+
+</script>
+<body>
+	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
