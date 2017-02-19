@@ -3,6 +3,7 @@
 ## Book 1: Up & Going
 
 ### Chapter 1: Into Programming
+```
   Code
     Statements
   	  Expressions
@@ -22,8 +23,9 @@
   	  Scope
   	Practice
   	Review
-
+```
 ### Chapter 2: Into JavaScript
+```
     Values and Types
       Objects
       Arrays
@@ -51,7 +53,7 @@
       Transpiling
     Non-JavaScript
     Review
-
+```
 
 
 
