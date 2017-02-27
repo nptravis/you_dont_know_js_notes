@@ -63,6 +63,11 @@
   ES6 and Beyond
   Review
 ```
+## Book 2: Scope and Closures
+
+### Chapter 1: What is scope?
+
+  
 
 
 

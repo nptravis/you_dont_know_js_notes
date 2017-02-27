@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<script type="text/javascript">
+	// Chapter 1: What is Scope?//////////////////////////////////////////////////////////////////////////////////////
+
+    // The ability to store and retrieve values in an variable is essential to programming languges, it is what gives a program 'state'. But where do those variables live? Where are they stored? The set of rules that decides this is called scope.
+
+    // Compiler Theory
+    // Your code undergoes 3 steps before it is executed, roughly called 'compilation':
+    // 1. Tokenizing/Lexing
+      // Breaking the language up into meaningful chunks, or tokens, for example:
+      var a = 2; // gets broken up into:
+      var, a, =, 2, ; // whitespace is added only if it is meaningful to the code
+      // Lexing decides if to invoke stateful parsing, would a be a distinct token, or just part of another token
+    // 2. Parsing: taking a stream (array) of tokens and turing it into a tree of nested elements, called an 'AST' (Abstract Syntax Tree).
+	    // A tree might start with a top-level node called VariableDecleration (var a = 2;)
+	    // with a child node called Identifier (a), and another child node called AssignmentExpression(=) and another child NumbericLiteral(2)
+    // 3. Code Generation: process of taking an AST and turning it into executable code.
+    // any snippet of JS code has to be compiled (usually right before) it's executed. JS compiler will take the program's code, compile it first, then be ready to execute it usually right away.
+
+    // Understanding Scope
+    // Think in terms of a conversation
+      // The Cast
+      // 1. Engine - responsible for compilation and execution of program
+      // 2. Compiler - parsing and code-generation
+      // 3. Scope - collects and maintains a list of variables and enforces how they are accesible
+      // Back and Forth
+      var a = 2;
+      // Compiler will perform lexing to break this into tokens, which will then parse into a tree.
+            // 1. Encountering var a, Compiler checks scope to see if this variable already exists for this scope collection. If so, Compiler ignores this declaration. If not, Compiler asks Scope to declare the new variable for that scope collection
+            // 2. Compiler then produces code for Engine to later execute, to handle var a = 2. When Engine runs, it also first asks Scope if there is a variable a accesible in current scope collection. If so, it uses it. If not, looks elsewhere.
+      // If engine finally finds variable a, it will assign 2 to it, if not it will throw an error. 
+
+      // Two distinct things happen for variable assignment, First, Compiler declares variable (if not previously declared in current scope). Second, when executing, Engine looks up the variable in Scope and assigns it, if found.
+
+      // Compiler Speak
+      // LHS- finding left hand side of variable declaration (varaiable container itself)
+      // RHS- right hand side of variable declaration (basically, go find varibles value)
+      console.log(a); // RHS- it needs to go find value of variable a
+      a = 2; // LHS- finds a is to the left of an assignment, looks for the variable as a target for the = 2 operation.
+      function foo(a) {
+        console.log(a); // this is an RHS look-up (go find value os a)
+      }
+      foo(2); // this is LHS lok-up, a is being assinged 2, like a =2; To (implicitly) assign to parameter a, an LHS look-up is performed.
+
+      // to imagine the way the code snippet is processed as a conversation:
+      /*
+      Engine: Hey Scope, I have an RHS reference for foo. Ever heard of it?
+      Scope: Why yes, I have. Compiler declared it just a second ago. He's a function. Here you go.
+      Engine: Great, thanks! OK, I'm executing foo.
+      Engine: Hey, Scope, I've got an LHS reference for a, ever heard of it?
+      Scope: Why yes, I have. Compiler declared it as a formal parameter to foo just recently. Here you go.
+      Engine: Helpful as always, Scope. Thanks again. Now, time to assign 2 to a.
+      Engine: Hey, Scope, sorry to bother you again. I need an RHS look-up for console. Ever heard of it?
+      Scope: No problem, Engine, this is what I do all day. Yes, I've got console. He's built-in. Here ya go.
+      Engine: Perfect. Looking up log(..). OK, great, it's a function.
+      Engine: Yo, Scope. Can you help me out with an RHS reference to a. I think I remember it, but just want to double-check.
+      Scope: You're right, Engine. Same guy, hasn't changed. Here ya go.
+      Engine: Cool. Passing the value of a, which is 2, into log(..). */
+
+    // Quiz
+    function foo(a) {
+      var b = a;
+      return a + b;
+    }
+   var c = foo(2);
+
+   // 1. Identify all LHS look-ups (there are 3):
+   var c = foo(2);
+   foo(2);
+   var b = a;
+
+   // 2. identify all RHS look-ups (there are 4):
+   return a + b; // two here
+   foo(a);
+   a;
+
+    // Nested Scope
+    function foo(a) {
+      console.log(a + b);
+    }
+
+    var b = 2; // outside the scope where b is actually called, the b is called in a nested scope
+    foo(2); // 4
+
+    // Simple rules for traversing nested scope are:
+    // Engine looks in current scope variable is called, if not found goes up one level then looks again, if not found up another level until it reaches Global Scope, if not found in Global Scope it stops and throws an error.
+
+    // Errors
+
+    function foo(a) {
+      console.log(a + b);
+      b = a;
+    }
+
+    foo(2);
+    // When the RHS look-up is performed for the first time to find b, will throw a ReferenceError because b is not yet defined
+    // ReferenceError implies a Scope resolution failure. If a LHS lookup isn't found, an automatic Global scope variable will be implicitly created, but not allowed in strict mode.
+    // TypeError implies the Scope resolution was succesful(found the variable declaration) but there was an illegal action attemtped against it (such as trying to execute as a function a non-function value, or reference a property on a null or undefined value) 
+
+  // Review ///////////////////////////////////////////////////////////////////////////////////
+  // Scope is a set of fules deciding where and how a variable can be looked up.
+  // LHS- used for the purpose of assigning to the variable (using (=) assignment operator, or passing a value to a function is also LHS)
+  foo(2); // a = 2 happens here, therefor a LHS look-up.
+  // RHS- used for the purpose of retrieving its value
+  console.log(a); // Engine needs to lookup a's value, a RHS lookup
+
+
+
+    
+
+
+
+	   
+
+
+</script>
+<body>
+	
+</body>
+</html>
