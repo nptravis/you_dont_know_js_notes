@@ -66,6 +66,27 @@
 ## Book 2: Scope and Closures
 
 ### Chapter 1: What is scope?
+```
+  Compiler Theory
+   Tokenizing/Lexing
+   Parsing
+   Code-Generation
+  Understanding Scope
+   The Cast
+    Engine
+    Compiler
+    Scope
+   Back and Forth
+   Compiler Speak
+   Engine/Scope Conversation
+   Quiz
+  Nested Scope
+   Building on Metaphors
+  Errors
+  Review(TL;DR)
+   Quiz Answers
+```
+
 
   
 
