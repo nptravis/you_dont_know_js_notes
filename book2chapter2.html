@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script type="text/javascript">
+	// Chapter 2: Lexical Scope ///////////////////////////////////////////////////////////////////
+	  // Lexical scope is most common type of scope, used by most programing languages including JavaScript.
+	  // Dynamic scope is still used by some languages, such as Bash scriptinh, some modes in Perl.
+
+	  // Lex-time
+	  // Lexical scope is based on where variables and blocks of scope are authored, by you, at write time, thus is set in stone (mostly) by the time the lexer processes your code.
+
+	  function foo(a) { // everything folliwing is in the function foo scope, identifies b, a, and bar
+	  	var b = a * 2;
+	  	function bar(c) { // everything here is in the function bar scope, identifies c
+	  		console.log(a, b, c);
+	  	}
+	  	bar(b * 3);
+	  }
+
+	  foo(2); // 2 4 12 // This is in the global scope
+
+	  // Look-ups
+	  // lookups start in the current scope and, if not found, go upwards. In this example, Engine wants to execute console.log(...), so it starts looking for a, b, and c in the bar scope, if found uses it, if not goes up another level. 
+	  // Scope stops looking once it has found the first match. So if there is another declaration of the same variable in a higher it will never get there.
+	  // Shadowing is when the same variable is defined in a lower scope, therefore it will get used instead of the global variable
+
+	  // Cheating Lexical
+	  
+	  // eval - can cheat lexical scope by using eval to pretend code was there at time of authoring. Generally considered bad practice, and slows processing time.
+
+	  function foo(str, a) {
+	  	eval(str); // cheating, treates as if var b =3; was there all along
+	  	console.log(a, b);
+	  }
+	  var b = 2;
+	  foo("var b = 3;", 1); // 1 3, prints 3 instead of 2, because the var b is shadowed
+
+	  // with 
+	  // used to make multiple object property changes
+	  var obj = {
+	  	a: 1,
+	  	b: 2,
+	  	c: 3
+	  };
+
+	  // tedious approach
+	  obj.a = 2;
+	  obj.b = 3;
+	  obj.c = 4;
+
+	  // easier using 'with'
+	  with (obj) {
+	  	a = 3;
+	  	b = 4;
+	  	c = 5;
+	  }
+
+	  // Now, following shows how with can accidentially create a global variable:
+	  function foo(obj) {
+	  	with (obj) {
+	  		a =2;
+	  	}
+	  }
+
+	  var o1 = {
+	  	a: 3
+	  };
+	  var o2 = {
+	  	b: 3
+	  };
+
+	  foo(o1);
+	  console.log(o1.a); // 2
+
+	  foo(o2);
+	  console.log(o2.a); // undefined
+	  console.log(a); // 2 -- Oops, leaked global!
+
+	  // the with statement creates a whole new lexical scope, out of thin air, from te object you pass into it. Since o2 didn't have that identifier, LHS identifer look-up occured, and created a new global variable.
+	  // strict mode disallows this use of with and eval().
+
+	  // Performance
+	  // both eval(..) and with cheat the author defined lexical scope at runtime by creating new lexical scope at runtime.
+	  // the JS engine has optimizations that occur at compilation, being able to statically analyze the code as it lexes, and predetermine where al the variable declerations are, so it saves time during execution.
+	  // If the engine sees a with, or an eval(...), it can't predetermine variable positions, cause they might change.
+
+	// Review ///////////////////////////////////////////////////////////////////////////////////////
+	// Lexical scope means that scope is defined by the author-time decisions of where functions are declared.
+	// Using with or eval(...) can modify lexical scope at runtime, and doesn't allow the engine to run using certian optimizations, effectivly making the code run slower.
+	// Basically, don't ever use with or eval(...)!!!!!!!!!
+
+</script>
+<body>
+	
+</body>
+</html>

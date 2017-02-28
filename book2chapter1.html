@@ -110,6 +110,12 @@
   // RHS- used for the purpose of retrieving its value
   console.log(a); // Engine needs to lookup a's value, a RHS lookup
 
+  var a = 2;
+  // Engine compiles this code before it executes in two steps:
+  // 1. Sets var a at the beginning, to declare the variable in that scope
+  // 2. a LHS lookup is required to assign the value, if found.
+
+// Unfulfilled RHS references result in ReferenceErrors being thrown. Unfulfilled LHS references result in an automatic, implicitly-created global of that name (if not in "Strict Mode" [^note-strictmode]), or a ReferenceError (if in "Strict Mode" [^note-strictmode]).
 
 
     
