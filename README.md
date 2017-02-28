@@ -86,6 +86,17 @@
   Review(TL;DR)
    Quiz Answers
 ```
+### Chapter 2: Lexical Scope
+```
+  Lex-time
+   look-ups
+  Cheating Lexical
+    eval
+    with
+    Performance
+  Review
+```
+
 
 
   
