@@ -96,6 +96,25 @@
     Performance
   Review
 ```
+### Chapter 3: Function vs. Block Scope
+```
+  Scope from Functions
+  Hiding in Plain Scope
+    Collision Avoidance
+      Global "namespaces"
+      Module Management
+  Functions as Scopes
+    Anonymous vs. Names
+    Invoking Function Expressions Immediately
+  Blocks as Scopes
+    with
+    try/catch
+    let
+      garbage collection
+      let loops
+    const
+  Review
+```
 
 
 
