@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script type="text/javascript">
+	// Chapter 4: Hoisting ///////////////////////////////////////////////////////
+	// Scope is the idea of variables attaching to the scope of the function or block they are called in.
+	// Hoisting is how these attachments work depending on where they are called in the function or block.
+
+	// Chicken or the Egg?
+	a = 2;
+	var a;
+	console.log(a); // 2
+
+	// or:
+	console.log(a); // undefined, not ReferenceError because compiler sets var a before execution, but doesn't assign it
+	var a = 2;
+
+	// The Compiler Strikes Again
+	// All declerations, variables and functions, are processed first before any part of your code is executed
+	var a = 2;
+	var a; // Compiler sets var a
+	a = 2; // assignment happens during execution.
+
+	// Metaphorically the variable and function declarations are moved to the top of the code before execution, hence the term "Hoisting". The egg (declaration), comes before the chicken (assignment).
+	//Note, only declarations are hoisted!!
+
+	foo();
+
+	function foo() {
+		console.log(a); // undefined
+		var a = 2;
+	}
+
+	// Hoisting works within the scope of the function, so var a is hoisted to the tope of foo(), not the top of the global scope
+	// So this code can be more accurately interpreted like:
+	function foo() {
+		var a;
+		console.log(a); // undefined
+		a = 2;
+	}
+  foo(); 
+  
+  // function declerations are hoisted, but function expressions are not
+  
+  foo(); // not ReferenceError, TypeError!
+  var foo = function bar() {
+  	//....
+  };
+
+  // TypeError because variable declaration of foo() is hoisted, but it's assignment is not, so foo() looks like a function without a value. So, foo() is trying to invoke the undefined value, which is a TypeError
+  foo(); // TypeError
+  bar(); // ReferenceError, compiler thinks bar() doesn't exist
+
+  var foo = function bar() {
+  	// ...
+  };
+  
+  // this snippet is hoisted as:
+   var foo;
+   foo(); // TypeError
+   bar(); // ReferenceError
+
+   foo = function(){
+   	var bar = ...self...
+   	// ...
+   }
+
+  // Functions First
+  // functions declarations are hoisted before variable declarations
+  foo(); // 1
+
+  var foo();
+
+  function foo() {
+  	console.log(1);
+  }
+
+  foo = function() {
+  	console.log(2)
+  }
+
+  // This snippet is interpreted by the engine as:
+  function foo() {
+  	console.log(1);
+  }
+
+  foo(); // 1
+
+  foo = function() {
+  	console.log(2);
+  }
+  // the var foo was ignored, becuase it was a duplicate that was hoisted after the function foo. Now, multiple function declarations with the same name, the last declared one will override previous ones
+  
+  foo(); // 3
+   
+   function foo() {
+   	console.log(1);
+   }
+
+   var foo = function() {
+   	console.log(2);
+   };
+
+   function foo() {
+   	console.log(3);
+   }
+  
+  // Function declarations that appear inside of normal blocks typically hoist to the enclosing scope, rather than being conditional as this code implies:
+  
+  foo(); // "b"
+
+  var a = true;
+
+  if (a) {
+  	function foo() {console.log("a");}
+  }
+  else {
+  	function foo() {console.log("b");}
+  }
+
+  // Review /////////////////////////////////////////////////////////////////////////
+  // As code is compiled, function and variable delarations are hoisted to the top of their respective scope.
+  // Only declerations are hoisted, not assignments, not even assingments of function expressions
+  // best to just avoid using mutliple declerations with the same name.
+
+</script>
+<body>
+	
+</body>
+</html>

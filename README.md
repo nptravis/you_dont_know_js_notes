@@ -115,6 +115,13 @@
     const
   Review
 ```
+### Chapter 4: Hoisting
+```
+  Chicken or the Egg?
+  The Compiler Strikes Again
+  Functions First
+  Review
+```
 
 
 
