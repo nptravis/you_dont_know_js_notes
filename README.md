@@ -122,6 +122,19 @@
   Functions First
   Review
 ```
+### Chapter 5: Scope Closure
+```
+  Enlightenment
+  Nitty Gritty
+  Now I can See
+  Loops and Closure
+    Block closure revisited
+  Modules
+    Modern Modules
+    Future Modules
+  Review
+``` 
+
 
 
 
