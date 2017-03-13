@@ -134,13 +134,23 @@
     Future Modules
   Review
 ``` 
-## Appendices 
+### Appendices 
 ```
    Appendix A: Dynamic Scope
    Appendix B: Polyfilling Block Scope
    Appendix C: Lexical-this
 ```
+## Book 3: 'this' & Object Prototypes
 
+### Chapter 1: 'this' or That?
+```
+   Why 'this'?
+   Confusions
+     itself
+     its scope
+   What's 'this'?
+   Review
+```
 
 
 
