@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script type="text/javascript">
+	// Appendix A: Dynamic Scope /////////////////////////////////////////////////////////////////////////////////
+	
+	// In contrast to Lexical Scope, is a model where scope by be determined 'dynamically' at runtime, not statically at author time
+
+	//In JS, the 'this' keyword is a near cousin to dynamic scope.
+
+	function foo() {
+		console.log(a); // 2 in Lexical scope, but 3 in dynamic scope
+	}
+
+	function bar() {
+		var a = 3;
+		foo();
+	}
+
+	var a = 2;
+	bar();
+
+	// Lexical scope will know the a variable in function foo(), using RHS look-up, can be found in the global scope.
+	// Dynamic scope doesn't care where or how functions and scopes are declared, but where they are called from. Scope chain is based on the call-stack, not the nesting of scopes in code. It walks back to where foo() was called from and uses that variable decleration.
+
+	// Key contrast: Lexical scope is write-time, whereas dynamic scope( and this!) are runtime. Lexical scope cares where a function was declared, but dynamic scope cares where a function was called from. 
+
+	// Appendix B: Polyfilling Block Scope //////////////////////////////////////////////////////////////////////
+
+	// In the past versions of EcmaScript (JavaScript), 'with' and 'catch' gave tiny examples of block scope, but now the 'let' keyword gives full, unfettered block-scoping capability.
+
+// For post ES6, you can use:
+
+	{
+		let a =2;
+		console.log(a); // 2
+	}
+
+	console.log(a) // ReferenceError
+
+// For pre ES6, use 'catch'
+
+try{throw 2}catch(a) {
+	console.log(a); // 2
+}
+
+console.log(a); // ReferenceError
+
+// Or, if I understand correctly, you can use a tool to transpile the code to work in Pre-ES6 environments
+
+// Traceur is a Google maintained project that is tasked with transpiling ES6 features into pre-ES6 for general usage.
+
+// Taceur transpiles our snippet into:
+
+{
+	try {
+		throw undefined;
+	} catch (a) {
+		a = 2;
+		console.log(a);
+	}
+}
+
+console.log(a);
+
+// Implicit vs Explicit Blocks
+// There are some pitfalls to code maintainability/refactorability when introducing block scope.
+
+// This is an example of an Explicit Block:
+let (a=2) {
+	console.log(a); // 2
+}
+
+console.log(a); // RefereneError
+
+// But, ES6 doesn't include the let-statement form, and nether does the offical Traceur compiler accept it.
+
+// Two options:
+// Format using ES6 valid syntax:
+{ let a = 2;
+   conole.log(a); // 2
+   }
+
+  console.log(a); // ReferenceError
+
+  // Author of this book has built a tool called 'let-er' to transpile the explicit let-statement into the ES6 acceptable form.
+
+  // Performance
+
+  // try/catch is slower than an IIFE, but may not always be. 
+  // Question really is, do you want block scopeing? If you do, these tools provide that option, if not keep using var and go about your coding. 
+
+  // Appendix C: Lexical-this //////////////////////////////////////////////////////////////////////////////////
+
+  // Arrow functions:
+  
+  var foo => { 
+  	console.log(a);
+  };
+
+  foo(2);
+  // arrow used as short-hand for the function keyword, but suffers a problem
+
+  var obj = {
+  	id: "awesome",
+  	cool: function coolFn() {
+  		console.log(this.id);
+  	}
+  };
+
+  var id = "not awesome";
+
+  obj.cool(); // awesome
+
+  setTimeout(obj.cool, 100); // not awesome
+
+  // You lose the 'this' binding on the cool() function when using setTimeout. Can be solved by using var self = this:
+
+  var obj = {
+  	count: 0,
+  	cool: function coolFn() {
+  		var self = this;
+
+  		if (self.count < 1) {
+  			setTimeout(function timer(){
+  				self.count++;
+  				console.log("awesome?");
+  			}, 100);
+  		}
+  	}
+  }
+  obj.cool(); // awesome?
+
+// var self = this, despenses with understanding the this binding, and just goes back to lexical scope. 
+// This is verbose, so the ES6 solution is the arrow function, introduces a behavior called 'lexical this'
+var obj = {
+	count: 0,
+	cool: function coolFn() {
+		if (this.count < 1) {
+			setTimeout( () => { // arrow-function ftw?
+				this.count++;
+				console.log("awesome?");
+			}, 100);
+		}
+	}
+};
+
+obj.cool(); // awesome?
+
+// arrow functions do not behave at all like normal functions when it comes to their 'this' binding. They discard all normal rules, and instead take on the 'this' value of their immediate lexical enclosing scope. 
+
+// Essentially, converts this block-style-scope in lexical scope, which author thinks is just building into the language the mistake that many develpors don't understand 'this' binding rules. 
+
+// Author prefers this syntax, using bind():
+
+var obj = {
+	count: 0,
+	cool: function coolFn() {
+		if (this.count < 1) {
+			setTimeout(function timer(){
+				this.count++; // 'this' is sae because of 'bind(..)'
+				console.log("more awesome");
+			}.bind(this), 100); // look ma, bind()!
+		}
+	}
+};
+
+obj.cool(); // more awesome
+
+// Important to understand arrow functions are not identical to normal functions. Understand the differences in order to fully utilize them. 
+
+</script>
+<body>
+	
+</body>
+</html>

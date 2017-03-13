@@ -134,6 +134,12 @@
     Future Modules
   Review
 ``` 
+## Appendices 
+```
+   Appendix A: Dynamic Scope
+   Appendix B: Polyfilling Block Scope
+   Appendix C: Lexical-this
+```
 
 
 
