@@ -151,6 +151,29 @@
    What's 'this'?
    Review
 ```
+### Chapter 2: 'this' All Makes Sense Now!
+```
+  Call-site
+  Nothing But Rules
+    Default Binding
+    Implicit Binding
+      Implicity Lost
+    Explicit Binding
+      Hard Binding
+      API Call "contexts"
+    "new" Binding
+  Everything in Order
+  Determining 'this'
+  Binding Exceptions
+    Ignored 'this'
+    Safer 'this'
+    Indirection
+    Softening Binding
+  Lexical 'this'
+  Review
+```
+
+
 
 
 
